@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import io.micrometer.common.lang.Nullable;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,7 +31,8 @@ public class Categoria implements Serializable{
     @Column(name = "nome", length = 120, nullable = false, unique = true)
     private String nome;
 
-    @OneToMany(mappedBy = "categoria")
+    @JsonManagedReference
+    @ManyToMany(mappedBy = "categorias")
     private Set<Produto> produtos = new HashSet<>();
 
 }
